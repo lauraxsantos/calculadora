@@ -5,27 +5,34 @@ import "./calculadora.css"
 
 export default function Calculadora(){
     const[num, setNum] = useState(0);
-    const[prevNum, setPrevNum] = useState()
-    const[operator, setOperator] = useState()
+    const[prevNum, setPrevNum] = useState();
+    const[operator, setOperator] = useState();
     const[memory, setMemory] = useState();
     const[usingMemory, setUsingMemory] = useState(false);
     const[first, setFirst] = useState(true);
+    const[limit, setLimit] = useState(true);
 
     function inputNum(e){
         var input = e.target.value;
-        if (first) {
-            setNum(input)            
-            setFirst(false)
-        } else{
-            setNum(num + input)
+        if(num.length > 9){
+            setLimit(false)
+        }
+        if(limit){            
+            if (first) {
+                setNum(input);        
+                setFirst(false);
+            } else{
+                setNum(num + input);
+            }
         }
     }
 
     function clear(){
         setNum(0);
-        setPrevNum(0)
-        setOperator("")
-        setFirst(true)
+        setPrevNum(0);
+        setOperator("");
+        setFirst(true);
+        setLimit(true);
     }
     
     function operatorHandler(e){
@@ -33,25 +40,32 @@ export default function Calculadora(){
         setOperator(operatorInput);
         setPrevNum(num);
         setFirst(true);
+        setLimit(true);
         calculate();
+    }
+
+    function round(resultFormated){
+        if (resultFormated.toString().split(".").length > 1){
+            return resultFormated.toFixed(3);
+        } else return resultFormated;
     }
 
     function calculate(){
         var result;
         if (operator === "/" ) {
-            result = (parseFloat(prevNum) / parseFloat(num)); 
+            result = round((parseFloat(prevNum) / parseFloat(num))); 
             setPrevNum(result)
             setNum(result)
         } else if (operator === "+" ) {
-            result = (parseFloat(prevNum) + parseFloat(num)); 
+            result = round((parseFloat(prevNum) + parseFloat(num))); 
             setPrevNum(result);
             setNum(result);         
         } else if (operator === "-" ) {
-            result = (parseFloat(prevNum) - parseFloat(num));
+            result = round((parseFloat(prevNum) - parseFloat(num)));
             setPrevNum(result);
             setNum(result);     
         } else if (operator === "X" ) {
-            result = (parseFloat(prevNum) * parseFloat(num)); 
+            result = round((parseFloat(prevNum) * parseFloat(num))); 
             setPrevNum(result);
             setNum(result);
         } else if (operator === "="){
@@ -78,6 +92,7 @@ export default function Calculadora(){
     }
     function subMemory(){
         setMemory(parseFloat(memory) - parseFloat(num));
+        setNum(0)
     }
 
     function clearMemory(){
