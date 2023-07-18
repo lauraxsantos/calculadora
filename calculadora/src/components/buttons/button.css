@@ -1,0 +1,24 @@
+button{
+    width: 3em;
+    height: 3em;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 2em;
+    margin: 0.3em;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.number{
+    background-color: #5e9fa3;
+}
+
+.func{
+    background-color: #b05574;
+}
+
+.memory{
+    background-color: #fab87f;
+}
