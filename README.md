@@ -1,2 +1,2 @@
-# calculadora-trabalho-01
+# calculadora
 Calculadora desenvolvida para disciplina de dispositivos móveis
